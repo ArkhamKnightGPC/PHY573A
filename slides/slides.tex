@@ -1,0 +1,325 @@
+\documentclass{beamer}
+\usetheme[progressbar=frametitle]{metropolis}
+\usepackage{appendixnumberbeamer}
+
+\usepackage{booktabs}
+\usepackage[scale=2]{ccicons}
+
+\usepackage{pgfplots}
+\usepgfplotslibrary{dateplot}
+
+\usepackage{xspace}
+\newcommand{\themename}{\textbf{\textsc{metropolis}}\xspace}
+
+\usefonttheme{structurebold}
+\usecolortheme{orchid}
+
+\usepackage{preamble}
+
+\title{Micro and Nano Electronics Experimental Design}
+\author{\textbf{Léo Gabriel \& Gabriel Pereira de Carvalho}}
+\institute{PHY\_51173\_EP \\
+Professor Costel Sorin Cojocaru \\ École polytechnique}
+\date{\today}
+
+\AtBeginSection[]{
+  \begin{frame}
+  \vfill
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
+    \usebeamerfont{title}\insertsectionhead\par%
+  \end{beamercolorbox}
+  \vfill
+  \end{frame}
+}
+
+\begin{document}
+\frame{\titlepage}
+
+\section{Introduction}
+
+\begin{frame}{The end of Moore's law ? State of CMOS technology}
+\begin{itemize}
+    \item CMOS technology approaching physical and practical limits:
+    \begin{itemize}
+        \item higher power densities (end of Dennard scaling in the 2000s);
+        \item rising fabrication costs;
+        \item increased leak currents;
+    \end{itemize}
+\end{itemize}
+
+\begin{figure}
+\subfigure[IBM's 2nm chip (2021)]{
+    \includegraphics[width=0.35\linewidth]{slides/IBM Research 2 nm Wafer_678x452.jpg}
+    \label{fig:IBM}
+}
+\subfigure[Moore's law: number of transistors in an IC doubles every 2 years]{
+    \includegraphics[width=0.35\linewidth]{slides/moore.png}
+    \label{fig:moore}
+}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Consequences of the end of Moore's law}
+“The only way to get more computing capacity today is to build bigger, more energy-consuming machines. If we’re in an AI arms race with our adversaries, it could have a dramatically bad impact on climate.” \textbf{Professor Charles Leiserson, MIT}
+%programmers have grown accustomed to consistent improvement in performance being a given, which has led to practices that valued productivity over performance. 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{slides/Leiserson.jpg}
+    \label{fig:MIT}
+\end{figure}
+\end{frame}
+
+
+%Unlike silicon-based transistors, which are made at temperatures around 450 to 500 degrees Celsius, CNFETs also can be manufactured at near-room temperatures. “This means that you can actually build layers of circuits right on top of previously fabricated layers of circuits, to create a three-dimensional chip,” Shulaker explains. “You can’t do this with silicon-based technology, because you would melt the layers underneath.”
+
+%A 3D computer chip, which might combine logic and memory functions, is projected to “beat the performance of a state-of-the-art 2D chip made from silicon by orders of magnitude,” he says.
+
+%\begin{itemize}
+%    \item electron mobility close to theoretical limit
+%    \item nanoscale dimensions
+%    \item low threshold voltage $\imply$ faster switching
+%    \item allow fabrication of 3D integrated circuits
+%\end{itemize}
+\begin{frame}{Can CNFETs restore Moore's law ?}
+\begin{itemize}
+    \item Carbon nanotube replaces silicon channel
+    \item Ballistic electron transport (electron mobility approaches theoretical limit)
+    \item Faster switching speed %because of nanoscale dimensions and low Vth
+    \item Lower parasitic losses %fixes high dynamic consumption of CMOS
+\end{itemize}
+\begin{figure}[h]
+    \centering
+    \subfigure[CNTFET principle]{\label{fig:CNTFET-principle}\includegraphics[width=0.40\linewidth]{0_Principle/CNTFET_Principle.png}}
+    \subfigure[A substrate for CNTFET with 6 illustrative devices]{\label{fig:CNTFET-principle2}\includegraphics[width=0.40\linewidth]{0_Principle/CNTFET_Principle2.png}}
+\end{figure}
+\end{frame}
+
+%\begin{frame}{Carbon nanotubes}
+%    \begin{itemize}
+%        \item A type of \textit{fullerene}
+%        \item Carbon "tubes" with graphene structure
+%        \item Two main characteristics: diameter, chirality
+%        \item Can be conductor or semiconductor
+%    \end{itemize}
+%    \begin{figure}
+%        \centering
+%        \includegraphics[width=0.5\linewidth]{slides/Carbon_nanotube_zigzag_povray_cropped.PNG}
+%        \caption{Carbon nanotube representation}
+%        \label{fig:enter-label}
+%    \end{figure}
+%\end{frame}
+
+\section{Metal catalyst deposition}
+
+\begin{frame}{Electron-beam vapor deposition}
+\begin{itemize}
+    \item Heated filament emits electrons
+    \item Electrons accelerated by an electric field (flux) heat up metal
+    \item Sublimated metal: homogeneous deposit on wafer
+    \item Start / stop by moving the shutter
+    \item Vacuum ($10^{-8} mbar$): Sublimation and no electron absorbed by air
+\end{itemize}
+\begin{figure}[h]
+    \centering
+    \label{fig:Evap}\includegraphics[width=0.3\linewidth]{1_Deposit/deposit_principle.png}
+    %\caption{Electron-beam vapor deposition diagram}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Thickness of metallic catalyst layers}
+\begin{itemize}
+    \item Full monolayer of alumina and $0.1$ monolayer equivalent of iron \\ $\implies$ iron atoms cover about $20\%$ of wafer surface (good mobility)
+\end{itemize}
+\begin{align}
+    \begin{cases}
+        \epsilon_{\mathrm{Al_2O_3}} =  1 \mathrm{nm}\\
+        \epsilon_{\mathrm{Fe}} = 0.15 \mathrm{nm}
+    \end{cases}
+\end{align}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{photos_lab/metal_deposition.jpg}
+    %TALK ABOUT VARIATIONS IN THESE PARAMETERS!!!!
+    \label{fig:waf}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Computing deposition time}
+\[
+    \epsilon = I_{\mathrm{flux}} \cdot t \cdot C_{\text{evap}}
+\]
+where $C_{\text{evap}}$ is a constant value which is given for each metal.
+
+\begin{table}[H]
+\centering
+\scriptsize
+\begin{tabular}{|c|c|c|}
+    \hline
+    \textbf{Materials} & Al$_2$O$_3$ & Fe \\
+    \hline
+    \textbf{Crucible position (x,y,z)}  & (19.5, -6, -2) & (39, 5, -2) \\
+    \hline
+    \textbf{Beam evaporation constant $C_{\mathrm{evap}}$ (nm$\cdot \mu$A$^{-1} \cdot$s$^{-1}$)}  & 0.046 & 0.026 \\
+    \hline
+\end{tabular}
+\end{table}
+\textbf{Example}
+$$t_{Al_2O_3} = \frac{1 \mathrm{nm}}{100 \mathrm{nA} \cdot 0.046 \mathrm{nm} \cdot \mu\mathrm{A}^{-1} \cdot \mathrm{s}^{-1}} = 217 \mathrm{s} = 3 \mathrm{min} 37 \mathrm{s}$$
+\end{frame}
+
+\section{Carbon nanotube growth (CVD)}
+
+\begin{frame}{CVD: specific properties of silica layer on the wafer}
+\begin{itemize}
+    \item Very smooth surface $\implies$ uniform deposition of the metal particles, regular clusters
+    \item Stable in the temperature range inside vacuum chamber (up to 800$^{\circ}$)
+    \item Chemically inert
+\end{itemize}
+\end{frame}
+
+\begin{frame}{How to form carbon nanotubes ?}
+\begin{itemize}
+    \item Graphene and nanotubes have $sp^2$ hybridization
+    \item Graphene is flat because the $120^{\circ}$ angles in the hexagons match the angle separating the $sp$ orbitals
+    \item We use metal catalysts to introduce defects in carbon structure during deposition!
+\end{itemize}
+\begin{figure}[h]
+    \centering
+    \subfigure[CNT structure]{\label{fig:CNT}\includegraphics[width=0.28\linewidth]{photos_lab/sp2.PNG}}
+    \subfigure[Defects on graphene structure]{\label{fig:fullerene}\includegraphics[width=0.50\linewidth]{slides/fullerene.jpg}}
+\end{figure}
+\end{frame}
+
+\begin{frame}{CVD procedure}
+\begin{itemize}
+    \item $10^{-6} mbar$ vaccum (avoid pollution), then introduce gases ($3 mbar$)
+    \item Holes + heating up 
+    \begin{itemize}
+        \item H$_2$ mass flow controller $\implies$ flow of 30 SCCM
+    \end{itemize}
+    \item Growth
+    \begin{itemize}
+        \item H$_2$ mass flow controller $\implies$ flow of 20 SCCM
+        \item CH$_4$ mass flow controller $\implies$ flow of 10 SCCM
+    \end{itemize}
+    \item Methane deposition duration is critical
+    \item Maintain $T= 800\text{°}C$, $p = 3 mbar$ critical
+    \item Stop: pressure kills the reaction
+\end{itemize}
+
+\begin{figure}
+    \centering
+    \rotatebox{0}{\includegraphics[width=0.2\linewidth]{photos_lab/CVD.jpg}}
+    %\caption{Vacuum chamber during CVD procedure}
+    \label{fig:CVD}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Verify CNT growth: Raman Spectroscopy}
+    \begin{itemize}
+        \item Silica line
+        \item G-band \(\rightarrow\) graphene structure
+        \item D-band \(\rightarrow\) $sp^2$ (clue for CNT)
+    \end{itemize}
+    \begin{figure}[H]
+        \centering
+        \subfigure[\scriptsize{1 nm Al$_2$O$_3$, 0.1 nm Fe (30min CVD)}]{\label{fig:01Fe30min}\includegraphics[width=0.45\linewidth]{Raman/RAMAN_iron01_30min.png}}
+        \subfigure[\scriptsize{1 nm Al$_2$O$_3$, 0.1 nm Fe (1h CVD)}]{\label{fig:01Fe1hr}\includegraphics[width=0.45\linewidth]{Raman/RAMAN_iron01_1hr.png}}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Scanning electron microscopy (SEM)}
+\begin{itemize}
+    \item Sample with 1 nm Al$_2$O$_3$ and 0.15 nm Fe with 30 minutes CVD on the SEM
+    \begin{itemize}
+        \item we tried smaller Fe deposition to reduce density (0.075, 0.05 nm)
+        \item we tried less active catalysts (Co and Ni)
+    \end{itemize}
+\end{itemize}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{photos_lab/SEM.jpg}
+    \label{fig:SEM}
+\end{figure}
+\end{frame}
+
+\section{Electrode deposition}
+
+\begin{frame}{Photolitography}
+    \begin{itemize}
+        \item Process to deposit a material following a mask
+        \item Was done at Thales research center(Plateau de Saclay)
+        \item Procedure with specific timing for our application
+    \end{itemize}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.8\linewidth]{slides/photolitho_steps.png}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Photolitography}
+    \begin{figure}[h]
+        \centering
+        \subfigure[Electrodes seen with SEM]{\label{fig:CNT}\includegraphics[width=0.45\linewidth]{slides/4(1).jpg}}
+        \subfigure[Sample ready]{\label{fig:fullerene}\includegraphics[width=0.45\linewidth]{slides/sample_with_electrodes(1).jpg}}
+    \end{figure}
+\end{frame}
+
+\section{Electronic characterization}
+
+\begin{frame}{Electronic characterization}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.9\linewidth]{slides/elec_charact.png}
+        \\
+        A device being tested.
+
+        \begin{itemize}
+        \item Fixed $V_{GD} = 1.0V$
+            \item Plot $I_{DS} = f(V_{GS})$
+            \item $V_{GS}$ : sweep from $-10V$ to $+10V$ (back and forth)
+        \end{itemize}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Electronic characterization}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.75\linewidth]{slides/failed_charact.png}
+        \caption{Failed characterization}
+        \label{fig:enter-label}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Electronic characterization}
+    \begin{figure}[h]
+        \centering
+        \subfigure[1 nm $Al_2O_3$ 0,15 nm $Fe$]{\label{fig:CNT}\includegraphics[width=0.38\linewidth]{slides/curve 1 0,15.png}}
+        \subfigure[1 nm $Al_2O_3$ 0,10 nm $Fe$]{\label{fig:fullerene}\includegraphics[width=0.38\linewidth]{slides/curve 1 0,1 .png}}
+        \subfigure[1 nm $Al_2O_3$ 0,05 nm $Fe$]{\label{fig:fullerene}\includegraphics[width=0.38\linewidth]{slides/curve 1 0,05.png}}
+    \end{figure}
+\end{frame}
+\begin{frame}{Conclusion}
+    \begin{itemize}
+        \item We were able to make transistors
+        \item Insights on the challenges of CNTFET technology
+        \begin{itemize}
+            \item Scalability (how to make billions of such devices)
+            \item Size reduction
+            \item Process complexity and time
+        \end{itemize}
+    \end{itemize}
+    
+\end{frame}
+
+\begin{frame}{Making CNTFET}
+    \centering Thank you for listening !
+    
+    \begin{figure}[h]
+        \centering{\label{fig:CNT}\includegraphics[width=0.38\linewidth]{slides/sample_with_electrodes(1).jpg}}
+    \end{figure}
+\end{frame}
+
+
+\end{document}

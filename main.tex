@@ -1,0 +1,435 @@
+\documentclass[a4paper,12pt,twoside]{article}
+\usepackage{preamble}
+\usepackage[titlepage,fancysections,pagenumber]{polytechnique}
+\usepackage{graphicx,subfigure}
+
+\title{Micro and Nano electronics Experimental Design}
+\subtitle{PHY\_51173\_EP}
+\author{Léo Gabriel \\
+Gabriel Pereira de Carvalho}
+
+\date{December 2024}
+
+\begin{document}
+
+\maketitle
+
+\section*{Introduction}
+As the demand for energy-efficient and high-performance chips accelerates, the semiconductor industry faces an ever-growing challenge: scaling down transistors while minimizing power consumption and maintaining reliability. 
+Although CMOS technology has been the cornerstone of microelectronics for decades, it is now approaching its physical and practical limits. As transistors are scaled down to nanometer dimensions, issues such as increased leakage currents, higher power densities, and reduced switching efficiency have become significant barriers. Furthermore, the variability in manufacturing at smaller scales and the rising cost of fabrication pose additional challenges. These limitations drive the search for alternative technologies capable of sustaining advancements in performance, efficiency, and miniaturization.
+
+One promising solution is carbon nanotube field-effect transistors (CNTFETs), which leverage the unique properties of carbon nanotubes, such as their interesting electrical properties, nanoscale dimensions, and low-power operation. However, despite their theoretical advantages, the practical realization of CNTFETs faces numerous challenges, particularly in achieving consistent fabrication processes and scalable integration. 
+
+\textbf{This report presents our experimental project focused on the fabrication of CNTFET devices.} We will explain the underlying theory, outline the fabrication steps, and analyze the results obtained from the project.
+
+We recorded videos explaining the experimental methodology for the \textit{electron beam vapor deposition} and for CVD. We also have videos from our first SEM session with Prof. Costel. You can click on the links below:
+\begin{itemize}
+    \item \href{https://www.youtube.com/yIN483XxH1w}{Molecular beam evaporation (metallic catalysts for CNT synthesis) part 1}
+    \item \href{https://www.youtube.com/Pil0u2AQIpo}{Molecular beam evaporation (metallic catalysts for CNT synthesis) part 2}
+    \item \href{https://youtu.be/rstTsvE_jYo}{Chemical vapor deposition (CVD for CNT synthesis)}
+    \item \href{https://www.youtube.com/jHOiCVn45UQ}{Scanning electron microscopy (SEM, carbon nanotubes on silica) part 1}
+    \item \href{https://youtu.be/uCtEx1HjjsI}{Scanning electron microscopy (SEM, carbon nanotubes on silica) part 2}
+    \item \href{https://youtu.be/4y9EVG-1USM}{Verification of photolitography results on SEM}
+    \item \href{https://youtu.be/3TylOsFjjZY}{Characteristic curve for P type CNFET}
+\end{itemize}
+
+\newpage
+\setcounter{section}{-1}
+\section{CNTFET principle and experiment core ideas}
+Carbon nanotubes (CNTs) are cylindrical structures composed of carbon atoms arranged in a hexagonal lattice, similar to graphene, but in a tube configuration. Not only do they have very remarkable mechanical properties, but they also have unique electronic properties that make some suitable for use in transistors. The electronic characteristics of CNTs, such as whether they behave as conductors or semiconductors, are highly dependent on their diameter and the way they are rolled. This property is described by the chirality of the nanotube, which defines its electronic band structure. Thinner CNTs with specific chiralities tend to exhibit semiconductor-like behavior, while wider CNTs can act as metals.
+%% graphe conductivity = f(diameter)
+\begin{figure}[h]
+    \centering
+    \subfigure[CNTFET principle]{\label{fig:CNTFET-principle}\includegraphics[width=0.40\linewidth]{0_Principle/CNTFET_Principle.png}}
+    \subfigure[A substrate for CNTFET with 6 illustrative devices]{\label{fig:CNTFET-principle2}\includegraphics[width=0.40\linewidth]{0_Principle/CNTFET_Principle2.png}}
+    \caption{CNTFET on a $S_i$ substrate principle.}
+\end{figure}
+
+Carbon nanotube field-effect transistors operate on principles similar to those of CMOS transistors but leverage the unique properties of carbon nanotubes as the channel material. In a CNTFET, a semiconducting carbon nanotube replaces the traditional silicon channel used in CMOS devices. The gate electrode controls the flow of charge carriers (electrons or holes) through the carbon nanotube, modulating the current between the source and drain terminals. Like in CMOS transistors, applying a voltage to the gate creates an electric field that determines whether the channel is conductive or insulating. The accompanying subfigure \ref{fig:CNTFET-principle} illustrates the basic principle, with the CNT forming the channel between the source and the drain, and a silicon dioxide layer acting as the dielectric insulator to separate the silicon gate. In our experiment, CNTFETs were integrated into substrates with multiple devices (pair of electrodes), as shown in the second subfigure \ref{fig:CNTFET-principle2}. This configuration enables only one gate and one channel for the whole sample and thus does not enable scalability for a circuit involving multiple gates as it is, but it enables testing devices with various electrode configurations such as varying distance between the electrodes (we will discuss this more in depth in section \ref{sec:electrode_depo}.
+
+The key advantage of CNTFETs lies in their combination of high electron mobility, small size, and low power consumption, enabling them to outperform traditional MOSFETs in critical areas. With ballistic electron transport in carbon nanotubes—where the mean free path can be up to 50 times longer than in silicon—CNTFETs experience minimal electron scattering, resulting in significantly reduced energy dissipation. This allows for operation at higher speeds with potentially up to 10 times lower energy consumption. Their nanoscale dimensions and low threshold voltage further enable faster switching (up to 3 times faster) and reduced parasitic losses. Additionally, CNTs exhibit exceptional thermal conductivity, preventing overheating and eliminating the need for extensive cooling systems. The high electron mobility of CNTs (over $10,000 , \mathrm{cm}^2/\mathrm{V \cdot s}$, compared to $1,400 , \mathrm{cm}^2/\mathrm{V \cdot s}$ in silicon) supports efficient current drive even at small sizes, maintaining low resistance during operation.
+
+\newpage
+\label{sec:matter_depo}
+\section{Metal catalyst deposit on the substrate}
+
+In the experimental setup, there were two chambers. The first step was fixing the silicon wafer on a platform by screwing in some metallic wires to hold the wafer in place. This step is important because we will rotate the wafer upside down before moving it into the second chamber for the deposition.
+
+Then, we closed the lid to the first chamber and verified that the secondary pump was properly isolated from the first chamber. Then we turned on the primary vacuum pump until a pressure of $10^{-2} \mathrm{mbar}$ was reached. At this moment, we activated the secondary pump to reach pressures under $10^{-6} \mathrm{mbar}$.
+
+After pressure was equalized in both chambers, we opened the valve connecting the chambers. Together with this valve, the first chamber effectively acts as a transition chamber which allows keeping a very low pressure of $10^{-8}$ \mathrm{mbar} in the second chamber. Then, we moved the silicon wafer into position in the second chamber before closing this connection again. For each deposition, we raised the wafer up the $z$ axis, and then moved the crucibles into the right position.
+
+\subsection{Theory and protocol}
+% I made some changes to the explaination. See https://en.wikipedia.org/wiki/Electron-beam_physical_vapor_deposition.
+The conventional method to synthesize carbon nanotubes uses metallic catalysts. In the next section, we will discuss the importance of these metallic catalysts. But for now, let's focus on the deposition procedure.
+
+In our project, we used a \textit{electron beam vapor deposition} procedure to slowly deposit layers of a given metal with thicknesses in the nanometer range. For each wafer, we deposited two metal layers: first, a sacrificial layer of Al$_2$O$_3$ and second, a layer of Fe (we also experimented with Co and Ni).
+
+\begin{figure}[h]
+    \centering
+    \subfigure[Electron-beam vapor deposition diagram]{%
+    \label{fig:Evap}\includegraphics[width=0.3\linewidth]{1_Deposit/deposit_principle.png}}%
+    % Subfigure 1: TikZ diagram
+    %\subfigure[Evaporation setup diagram]{%
+    %    \label{fig:Evap}%
+        %\begin{tikzpicture}[scale = 0.75]
+        %    % Crucible with metal
+        %    \draw[thick,fill=yellow!50] (-0.3,-2.4) rectangle (0.3,-2.2);
+        %    \node[right] at (0.3,-2.3) {Crucible with metal sample};
+        %    % Evaporation beam
+        %    \draw[->,dashed] (0,-2) -- (0,2.5);
+        %    \node[left] at (0, -1) {Evaporation beam};
+        %    % Shutter
+        %    \draw[thick,fill=gray!70] (-0.3,0.5) rectangle (0.3,0.75);
+        %    \node[right] at (0.3,0.8) {Shutter};
+        %    % Substrate (silicon wafer)
+        %    \draw[thick,fill=blue!20] (0,3) circle (0.4);
+        %    \node[above] at (0,3.4) {Silicon wafer (face down)};
+        %\end{tikzpicture}
+    %}
+    \subfigure[Flux current measured on closed shutter]{%
+        \label{fig:shutter}%
+        \includegraphics[width=0.35\linewidth]{photos_lab/shutter.jpg}
+    }
+    \caption{Metal catalyst deposit principle}
+    \label{fig:deposition_system}
+\end{figure}
+
+Figure \ref{fig:Evap} illustrates the setup inside the vacuum chamber. We aligned along the $z$ axis: the crucible containing the desired metal, the shutter and the silicon wafer. To heat the crucible we utilized a metallic filament (made of tungsten because of its high melting temperature $3422^{\circ}$, good electrical conductivity and chemical inertia). By applying a high current on the filament, its temperature increases because of the Joule effect. When heated up, the filament emits electrons which are accelerated thanks to an electric field. Some of the electrons which have built up kinetic energy may then collide with the target metal contained in the crucible, which heats up the metal.
+
+The process is done under vacuum (around $10^{-8}$ mbar) which allows the electrons to reach the crucible with higher probability (do not collide with air), but also enables the metals not to liquefy but to be sublimated into a gas that will allow homogeneous deposition. The flow of electrons coming to the crucible can be measured as a current called flux. Measuring this flux current, we can calculate the rate of deposition of the metal particles to determine when the desired thickness is reached and close the shutter.
+
+There are two important calculations here:
+\begin{itemize}
+    \item estimating the desired thickness to cover the wafer with the desired density of metal atoms;
+    \item and calculating the open shutter time for deposition, so we deposit the desired thickness.
+\end{itemize}
+
+\subsubsection{Calculating thickness of metal layers}
+
+We assume uniform deposition of the metal particles on the wafer.
+
+We decided as a first reference to use a full monolayer of alumina and $0.1$ monolayer of iron (see \ref{sec:about-sub-nano} to explain what we mean as less than 1 monolayer). These parameters allow good mobility of the iron atoms in the holes we will create in the sacrificial alumina layer.
+
+Let $n_A$ denote the number of atoms in the metallic layer, $V_A$ denote the volume of a metallic atom, $R$ denote the wafer radius and $\epsilon$ denote the thickness of the layer. We can compute the volume of the layer in two ways
+
+$$ n_A \cdot V_A = \pi R^2 \cdot \epsilon \implies \epsilon = \frac{n_A \cdot V_A}{\pi R^2} $$
+
+We suppose that the density of atoms in a monolayer is $10^{16} \frac{\mathrm{atoms}}{\mathrm{cm}^2}$. The silicon wafers we used had a radius $R = 2.5\mathrm{cm}$, so the number of metallic atoms we want to deposit in each layer is
+
+$$n_A = (6.25 \mathrm{cm^2}) \times \left(10^{16} \frac{\mathrm{atoms}}{\mathrm{cm^2}}\right) = 6.25 \cdot 10^{16} \mathrm{atoms}$$
+
+The atomic radius for an isolated alumina molecule is $r_{\mathrm{Al_2O_3}} = 215 \mathrm{pm}$ and for an iron atom $r_{\mathrm{Fe}} = 126 \mathrm{pm}$. Thus, the volume of each deposited metallic particle, is
+
+\begin{align}
+    \begin{cases}
+        V_{\mathrm{Al_2O_3}} = \frac{4}{3} \pi r_{\mathrm{Al_2O_3}}^3 = 4.16 \cdot 10^{-29} \mathrm{m}^3 \\
+        V_{\mathrm{Fe}} = \frac{4}{3} \pi r_{\mathrm{Fe}}^3 = 8.38 \cdot 10^{-30} \mathrm{m}^3
+    \end{cases}
+\end{align}
+
+Finally, we compute the thicknesses
+
+\begin{align}
+        \begin{cases}
+            \epsilon_{\mathrm{Al_2O_3}} =  \frac{ (6.25 \cdot 10^{16} \mathrm{atoms}) \cdot (4.16 \cdot 10^{-29} \mathrm{m^3})}{\pi \cdot (6.25 \cdot 10^{-4} \mathrm{m}^2)} = 1.3 \mathrm{nm}\\
+            \epsilon_{\mathrm{Fe}} = \frac{ (6.25 \cdot 10^{16} \mathrm{atoms}) \cdot (8.38 \cdot 10^{-30} \mathrm{m^3})}{\pi \cdot (6.25 \cdot 10^{-4} \mathrm{m}^2)} = 0.26 \mathrm{nm}
+        \end{cases}
+    \end{align}
+
+\begin{tcolorbox}
+    On our first wafer, we used
+    
+    \begin{align}
+        \begin{cases}
+            \epsilon_{\mathrm{Al_2O_3}} =  1 \mathrm{nm}\\
+            \epsilon_{\mathrm{Fe}} = 0.15 \mathrm{nm}
+        \end{cases}
+    \end{align}
+    
+    On subsequent wafers, we tried variations of these parameters. We made a wafer with $\epsilon_{\mathrm{Al_2O_3}} = 4\mathrm{nm}$ and several wafers with different iron thicknesses $\epsilon_{\mathrm{Fe}} = 0.1 \mathrm{nm}$, $\epsilon_{\mathrm{Fe}} = 0.075 \mathrm{nm}$, $\epsilon_{\mathrm{Fe}} = 0.05 \mathrm{nm}$.
+    
+    To test metals with lower reactivities, we tried to replace iron with cobalt and nickel but we did not observe nano tubes in these two samples. For further experimentation, one could try increasing the thicknesses $\epsilon_{\mathrm{Co}}$ and $\epsilon_{\mathrm{Ni}}$ to account for the smaller formed cluster sizes.
+\end{tcolorbox}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{photos_lab/calc.jpg}
+    \caption{Layer thickness calculation on our first sample with $1\mathrm{nm}$ Al$_2$O$_3$ and $0.15\mathrm{nm}$ Fe.}
+    \label{fig:calc}
+\end{figure}
+
+\subsubsection{Calculating open shutter time}
+
+Using molecular beam of electron beam evaporation deposition procedures, there is a simple relationship linking target deposited thickness $\epsilon$, the flux $I_{\mathrm{flux}}$ and duration $t$. Indeed, we have
+\[
+    \epsilon = I_{\mathrm{flux}} \cdot t \cdot C_{\text{evap}}
+\]
+where $C_{\text{evap}}$ is a constant value which is given for each metal for the specific setup we could use.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|}
+    \hline
+    \textbf{Materials} & Al$_2$O$_3$ & Fe \\
+    \hline
+    \textbf{Crucible position (x,y,z) (mm)}  & (19.5, -6, -2) & (39, 5, -2) \\
+    \hline
+    \textbf{Beam evaporation constant $C_{\mathrm{evap}}$ (nm$\cdot \mu$A$^{-1} \cdot$s$^{-1}$)}  & 0.046 & 0.026 \\
+    \hline
+\end{tabular}
+\end{table}
+
+The deposition time is given by $t = \frac{\epsilon}{I_{\mathrm{flux}} \cdot C_{\mathrm{evap}}}$. Before starting deposition, we must first select the metal we want to deposit by displacing the movable crucible set to target coordinates to align the crucible with the wanted material with the setup. Immediately after opening the shutter, we used the flux value to compute $t$.
+
+For example, a typical measurement for alumina is $I_{\mathrm{flux}} = 100 \mathrm{nA}$. So, for $\epsilon_{\mathrm{Al}} =  1 \mathrm{nm}$, we have
+
+$$t_{Al_2O_3} = \frac{1 \mathrm{nm}}{100 \mathrm{nA} \cdot 0.046 \mathrm{nm} \cdot \mu\mathrm{A}^{-1} \cdot \mathrm{s}^{-1}} = 217 \mathrm{s} = 3 \mathrm{min} 37 \mathrm{s}$$
+
+after this time elapsed, we closed the shutter to stop the deposition.
+
+\label{sec:about-sub-nano}
+\subsubsection{About sub-nanoscale deposition}
+In the above computations, we assumed that matter deposition is continuous, with the ability to deposit a layer of any depth. However we have considered depositing as little as $0.05 nm$ of $F_e$, which at these scales make no real sense. Indeed for iron, as the atomic radius is $r_{Fe} = 0.126 nm$, the height of a monolayer would be $2 r_{Fe} = 0.252 nm$ which means that we would deposit a film of height below one monolayer. Thus, when we use the denomination $0.05 nm$ $Fe$, we in fact mean that we have deposited a fraction of the necessary atoms which would be needed to the first atomic layer, leaving a $\frac{0.05\cdot1}{0.252} = 20 \%$ filled area.  
+
+\newpage
+\label{sec:CN_growth}
+\section{Carbon nanotube growth}
+
+Here the experimental setup had only one chamber. However, the same procedure was followed to set the vacuum. First, we made sure the secondary pump was isolated to avoid contamination (if this step was not perfomed, it took a long time to get the secondary pump back to its pressure level). We also checked that the hydrogen and methane flows into the chamber were closed. Then, we turned on the primary pump to reach $10^{-3} \mathrm{mbar}$. Then we activated the secondary pump to reach pressures below $10^{-8} \mathrm{mbar}$, and then we isolated the pump again.
+
+\subsection{Theory and protocol}
+
+In our project, we used a \textit{chemical vapor deposition} (CVD) procedure to grow CNTs using metallic catalysts \cite{costel1} \cite{costel2}. As discussed in the introduction, the silica layer is an insulator, separating the active terminals of the CNFET from the silicon substrate. In addition, it also has important properties for CVD:
+\begin{itemize}
+    \item The silica surface of a wafer has a very flat surface allowing for uniform deposition of the metal particles. Imperfections on the surface could cause aggregation of the catalysts in certain regions of the wafer, which could result in reduced cluster formation thus reduced CNT yield and non-uniform growth of CNTs.
+    \item Silica is stable in the temperature range inside our vacuum chamber (up to 800$^{\circ}$).
+    \item Silica does not chemically interact with the catalysts, the carbon structures or the gases used during the growth.
+\end{itemize}
+
+Now, before we discuss the CVD procedure and the formation of the nanotubes, let's discuss the chemical differences between graphene and carbon nanotubes to explain what needs to happen on the wafer to allow nanotubes to form.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.3\linewidth]{photos_lab/sp2.PNG}
+    \caption{sp$^2$ hybridization in carbon nanotube structure}
+    \label{fig:sp2}
+\end{figure}
+
+\begin{tcolorbox}
+\textbf{Chemistry behind the formation of carbon nanotubes}
+
+In carbon, the $2s$ and $2p$ valence orbitals can interact to form hybridized orbitals. The different types of hybridization ($sp$, $sp^2$ or $sp^3$) affect the bond angles between carbon atoms.
+
+Let's consider methane for example. In methane, the $s$ orbital and the three $p$ orbital in the valence layer interact to form four hybridized $sp$ orbitals. By symmetry, we see that this implies a tetrahedral structure, with carbon in the center and the hydrogen atoms in the vertices.
+
+In both graphene and carbon nanotubes, we observe $sp^2$ hybridization. Again by symmetry, this means we have three planar $sp$ orbitals separated by an angle of $120^{\circ}$ and an unhybridized higher-energy $p$ orbital perpendicular to this plane (this orbital will curve to participate in the curved double bond we observe for each carbon in the structure). A graphene sheet is flat because the $120^{\circ}$ angles in the hexagons match the angle separating the $sp$ orbitals.
+
+Thus, on our flat wafer, the deposition of carbon atoms will produce a perfectly flat graphene structure. To allow for the formation of carbon nanotubes, we need to introduce defects in the hexagonal graphene structure. Pentagonal or heptagonal faces will alter the bond angles of some carbon atoms in the structure $\implies$ the structure will bend into a 3D configuration.
+\end{tcolorbox}
+
+In CVD, first we will introduce hydrogen into the vacuum chamber. The hydrogen will interact with the oxygen atoms in the alumina. When the alumina particles leave the wafer, they leave behind holes in the surface. Because of the rising temperature, the iron atoms are agitated and will start to move to occupy these holes effectively forming clusters where CNTs will be able to form. When we introduce methane into the vacuum chamber, the carbon atoms deposited on top of the iron particles will form curved structures.
+
+\begin{figure}
+    \centering
+    \rotatebox{270}{\includegraphics[width=0.5\linewidth]{photos_lab/CVD.jpg}}
+    \caption{Vacuum chamber during CVD procedure}
+    \label{fig:CVD}
+\end{figure}
+
+Now, let's discuss the exact numerical parameters and methodology used in the experiment.
+
+In order to introduce the gases into the chamber, we used \textit{mass flow controllers} receiving an input voltage to control their output flow, measured in \textit{sccm} (standard cubic centimeters per minute).
+
+For example, the valve on the H$_2$ controller was calibrated for a maximum flow of 100 sccm at an input of 10 volts. We applied $30\%$ of this max flow rate, that is 30 sccm.
+
+For example, the valve on the CH$_4$ controller was calibrated for a maximum flow of 50 sccm at an input of 10 volts. We applied $20\%$ of this max flow rate, that is 10 sccm.
+
+We agreed to keep this proportion of 3 H$_2$ molecules for every methane molecule for all the CVD procedures we performed. All of the wafers had the same carbon deposition conditions.
+
+We started the hydrogen value and simultaneously started heating the chamber. In approximately 2 minutes, the temperature measured in the chamber went from 200$^\circ$ to 800$^\circ$. At this point, we kept tried our best to the temperature constant at 800$^\circ$ and started the methane flow into the chamber.
+
+For temperatures above 900$^\circ$, carbon nanotubes experience thermal decomposition. So there is no CNT growth which is to be avoided.
+
+Once the methane flow into the chamber started, we set a timer to control the carbon deposition time. For the majority of the samples, we used a 30 minutes deposition time but we also experimented with 1 hour to check the impact on the resulting carbon nanotube density.
+
+During the whole growth process, we maintained a pressure of $3$ mbar.
+
+\subsection{Results}
+
+Two approaches were used to verify the growth of CNTs on the wafer:
+
+\begin{itemize}
+    \item \textit{Raman spectroscopy};
+    \item \textit{Scanning Electron Microscopy} (SEM)
+\end{itemize}
+
+\subsubsection{Raman spectroscopy}
+
+\begin{figure}[H]
+    \centering
+    \subfigure[\scriptsize{1 nm Al$_2$O$_3$, 0.1 nm Fe (30 minutes CVD)}]{\label{fig:01Fe30min}\includegraphics[width=0.40\linewidth]{Raman/RAMAN_iron01_30min.png}}
+    \subfigure[\scriptsize{1 nm Al$_2$O$_3$, 0.1 nm Fe (1 hour CVD)}]{\label{fig:01Fe1hr}\includegraphics[width=0.40\linewidth]{Raman/RAMAN_iron01_1hr.png}}
+    \subfigure[\scriptsize{1 nm Al$_2$O$_3$, 0.05 nm Fe (1 hour CVD)}]{\label{fig:005Fe1hr}\includegraphics[width=0.40\linewidth]{Raman/RAMAN_iron005_1hr.png}}
+    \subfigure[\scriptsize{4 nm Al$_2$O$_3$, 0.1 nm Fe (30 minutes CVD)}]{\label{fig:4Al30min}\includegraphics[width=0.40\linewidth]{Raman/RAMAN_al4_30min.png}}
+    \subfigure[\scriptsize{1 nm Al$_2$O$_3$, 0.1 nm Co (30 minutes CVD)}]{\label{fig:Co30min}\includegraphics[width=0.40\linewidth]{Raman/RAMAN_cobalt.png}}
+    \caption{Raman spectroscopy plots}
+\end{figure}
+
+Raman spectroscopy allows identifying chemical structures through a light scattering technique. The sample is hit with a high intensity laser source of wavelength $\lambda_{\mathrm{laser}}$. Most of the scattered light also has wavelength $\lambda_{\mathrm{laser}}$ $\implies$ does not provide information about the sample, this is called \textit{Rayleigh scattering}. But, a very small percentage of the light is scattered at different wavelengths depending on the chemical structure of the sample, this is called \textit{Raman scattering}.
+
+The new lines appearing in the spectrum of the scattered light are symmetrical with respect to $\lambda_{\mathrm{laser}}$\cite{raman}, called the \textit{Rayleigh line} in the spectrum. We can express the wavelength of two symmetrical lines in the Raman spectrum by $\lambda = \lambda_{\mathrm{laser}} \pm \Delta \lambda_{Raman}$. The quantity $\Delta \lambda_{Raman}$ is called the \textit{Raman shift}.
+
+So in Raman spectrum plots, we do not characterize the new scattered light lines by their frequency or wavelength but by their \textit{Raman shift} with respect to the source laser.
+
+Each peak we observe in a Raman spectrum corresponds to the vibration of a specific molecular bond hit by the source laser. In our spectrums, we are interested in four regions of the plot:
+\begin{itemize}
+    \item one associated with the silica substrate at $\Delta \lambda_{Raman} = 500 \mathrm{cm^{-1}}$;
+    \item one associated with the radial vibration (expansion and contraction) of the nanotube diameter at $\Delta \lambda_{Raman} = 100 \mathrm{cm^{-1}}$ (this is called the \textit{radial breathing mode});
+    \item one associated with the sp$^2$ bonds between carbon atoms. In graphene we see a single, sharp peak at $\Delta \lambda_{Raman} = 1580 \mathrm{cm^{-1}}$, and in carbon nanotubes we see two peaks at $\Delta \lambda_{Raman} = 1560 \mathrm{cm^{-1}}$ and $\Delta \lambda_{Raman} = 1590 \mathrm{cm^{-1}}$. This is called the \textit{graphitic band} or \textit{G-band}.
+    \item one small peak at $\Delta \lambda_{Raman} = 1350 \mathrm{cm^{-1}}$ depending on the defects in the nanotubes. This is called the \textit{defect band} or \textit{D-band}.
+\end{itemize}
+
+In the sample \ref{fig:01Fe1hr}, with 1 nm Al$_2$O$_3$ and 1 nm Fe with 1 hour CVD; we observe very clearly the \textit{radial breathing modes} at $100-350 \mathrm{cm^{-1}}$, and a very clear \textit{G-band}. We can conclude that in these control conditions, the growth of carbon nanotubes was sucessful.
+
+Now in the sample \ref{fig:01Fe30min}, where we reduced the CVD time to 30 minutes; we observe that the growth of carbon nanotubes was not as succesful. We can still see peaks associated with the \textit{radial breathing modes} and the \textit{G-band} but they are not as strong as in sample \ref{fig:01Fe1hr}. We can conclude that the CVD time has a direct impact on the growth of carbon nanotubes. Of course, to determine which of the two samples has a good concentration for making CNFET devices, we need to move on to the next stage of our project.
+
+In the remaining samples shown, the growth of CNTs was probably a failure. When we reduced the thickness of the iron layer by half to $0.05 \mathrm{nm}$ in sample \ref{fig:005Fe1hr}, the \textit{G-band} disappeared which is a clue that no CNTs were formed.
+
+In sample \ref{fig:4Al30min}, where we used a $4 \mathrm{nm}$ alumina layer, there was also no observable growth. However in this specific sample, we suspect an error was made during the deposition of the metallic catalyst layers. So the results do not allow us to make a conclusion about the ideal alumina layer thickness.
+
+And finally, in sample \ref{fig:Co30min}, where we used a $1 \mathrm{nm}$ cobalt layer instead of iron; there was also no observed growth. We observed the same results with Nickel. This may indicate that, when using a less active catalyst, it is necessary to use a longer CVD time. We observed that growth in iron had difficulties with 30 minutes, so it is logical that cobalt and nickel had problems since thise metals are known as less capable catalysts.
+
+\subsubsection{Scanning Electron Microscopy (SEM)}
+
+We got to analyse more samples in the SEM than in Raman, however here our results are not based on a numerical metric but on visual evidence.
+
+The conclusions are the same. Given that very high densities can short circuit CNFET device terminals and turn the surface conductive (higher probability to have conductive CNTs among semiconducting CNTs), the most promising samples we observed at this stage were the $0.075 \mathrm{nm}$ and $0.1 \mathrm{nm}$ iron samples with 1 hour of CVD. One of the $0.05$ $Fe$ sample, which was grown by the other group, looked also very promising.
+
+Similar to Raman spectroscopy, we could not observe traces of CNTs in the cobalt and nickel samples. Further experimentation is required to verify conditions for growth with these catalysts.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{photos_lab/SEM.jpg}
+    \caption{Sample with 1 nm Al$_2$O$_3$ and 0.15 nm Fe with 30 minutes CVD on the SEM}
+    \label{fig:SEM}
+\end{figure}
+
+\newpage
+\label{sec:electrode_depo}
+\section{Electrode deposit using photolithography}
+To make CNTFET devices, one may add metallic electrodes on top of the substrates covered by carbon nanotubes (Figure \ref{fig:CNTFET-principle2}). This can be done using \textit{photolithography}.
+\\
+To perform photolithography, we were able to use machines from the clean room of the Thales research center on the \textit{Plateau de Saclay}. For this part, we followed a procedure with values and timing calibrated for our particular deposition with the specific machines present. Unable to take notes for security reasons, we were unable to write down the specific values and chemical components used in this part. We will thus refer them by their purpose.
+\\
+Here are the main steps we followed:
+
+\begin{enumerate}
+    \item[a)] \textbf{Substrate cleaning} \\
+    The process begins with cleaning the silicon wafer substrate. The substrate is emerged in a bath of a chemical cleaner which is shaken by an ultrasonic cleaning device to remove all potential to contaminants. After 10 to 20 seconds, the wafer is then rinsed with deionized water and dried on a 150°C plate. This is all done under a fume hood.
+
+    \item[b)] \textbf{Photoresist application} \\
+    A thin layer of photoresist, a light-sensitive liquid, is applied to the substrate using spin coating. After having put a few droplets of liquid photoresist, the substrate is rotated at speed of around $3000 RMP$ for $30$ seconds allowing the liquid to spread evenly on the surface. The spin speed and time determine the thickness of the photoresist layer. The coated substrate is then baked on a hot plate (around 150°C) for a 5 minutes.
+
+    \item[c)] \textbf{Exposure and developing} \\
+    The coated substrate is exposed to UV light through a photomask, which contains the desired pattern for the devices for the whole wafer. The UV light modifies the chemical structure of the photoresist in the exposed regions. Since we used a  positive photoresist, the exposed areas became soluble in the developer. After exposure, the substrate is immersed in a developer solution to dissolve the soluble regions, revealing the pattern transferred from the photomask.
+
+    \item[d)] \textbf{Etching and material deposition} \\
+    The exposed areas of the substrate, revealed after developing, are subjected to etching to remove material and create the desired pattern. The desired material (in our case, we deposit palladium electrodes) which will form electrodes is deposited onto the patterned areas of the substrate when immersed in a specific chemical solution. The remaining photoresist acts as a mask, ensuring that the material adheres only to the exposed regions, the unwanted material will then be removed alongside the photoresist.
+    
+
+    \item[e)] \textbf{Photoresist removal and cleanup} \\
+    The remaining photoresist is stripped away using a photoresist remover solvent. This step ensures that only the desired pattern remains on the substrate. The substrates were immersed in a photoresist removal solution for a specific duration ($27$ seconds in our configuration). Timing in this step is critical as too much immersion would allow the solution to attack the deposited electrodes while an immersion too short would leave some unwanted metal.
+    \\
+    Finally, the substrate is cleaned again to remove any residues or particles left over from the etching and stripping processes to obtain the final sample.
+\end{enumerate}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\linewidth]{3_electrode_depo/sample_with_electrodes.jpg}
+    \caption{Sample with electrodes, ready to be tested}
+    \label{fig:sample-final}
+\end{figure}
+
+\newpage
+\label{sec:elec_charact}
+\section{Electronic characterization}
+As a last step, we tried to characterize the electronic properties of some transistor devices choosen from the most promising substrates.
+
+\begin{figure}[h]
+    \centering
+    \subfigure[Sample in the electronic characterization tool]{%
+    \label{fig:charact_inside}\includegraphics[width=0.5\linewidth]{4_electronic_charact/sample_in_machine.jpg}}%
+    \subfigure[Camera view, which lets us observe the connected electrodes on the micro scale devices]{%
+    \label{fig:charact_camera}\includegraphics[width=0.5\linewidth]{4_electronic_charact/sample_camera.jpg}}%
+    \caption{A device ready to be tested}
+\end{figure}
+
+First of all, we scratched one point of the wafer to place a probe directly in contact with the silicon. In our setup, this will act as the gate. The silica on top is a dielectric layer, the carbon nanotube is the channel for passing current and the device fingers act as the source/drain terminals.
+
+Therefore, the air surrounding our device acts as a substrate terminal. The energy difference between the Fermi level of the palladium terminals and the air is high. This means that our device is a type p-type transistor because the nanotubes will favor hole conduction.
+
+In order to measure our transistor characteristics, $V_{S} = 0 V$ is kept constant and we apply a constant high voltage $V_D$ to keep the transistor in the saturation region when the device is in ON state.
+
+During the experiment, the gate node performed a DC sweep of voltage from $V_G =-10V$ to $V_G=+10V$ and then back in the opposite direction to check for \textit{hysteresis}.
+
+When $V_G < V_{th} < 0$ (where $V_{th}$ is the threshold voltage), the transistor is in ON state and we observe a decreasing drain current. As $V_G$ becomes positive, the device switches to OFF state and the current drops to zero.
+
+Hysteresis is the change of threshold voltage due to the finite switching speed between the transistor's ON and OFF states. In the plots below, the hysteresis curve is below the original curve.
+
+We observed that when placing the probes on the device terminals, sometimes we scratched the surface of the device which resulted in a leakage current during the measurement of the device characteristics. Unfortunately we did not export the numerical data for these experiments, which is why they are not presented in the plots.
+
+In the samples where nanotube growth did not happen, we observed a constant characteristic indicating no change in behavior as the gate voltage varied, namely the device acted as an insulator.
+
+\begin{figure}[h]
+    \centering
+    \subfigure[\scriptsize{Carbon nanotubes between device fingers}]{\label{fig:}\includegraphics[width=0.40\linewidth]{3_electrode_depo/2.jpg}}
+    \subfigure[\scriptsize{Device fingers on SEM}]{\label{fig:}\includegraphics[width=0.40\linewidth]{3_electrode_depo/4.jpg}}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \subfigure[\scriptsize{1 nm Al$_2$O$_3$, 0.15 nm Fe (30 minutes CVD)}]{\label{fig:}\includegraphics[width=0.4\linewidth]{3_electrode_depo/curve_Fe15.png}}
+    \subfigure[\scriptsize{1 nm Al$_2$O$_3$, 0.1 nm Fe (1 hour CVD)}]{\label{fig:}\includegraphics[width=0.4\linewidth]{3_electrode_depo/curve_Fe10.png}}
+    \subfigure[\scriptsize{1 nm Al$_2$O$_3$, 0.05 nm Fe (1 hour CVD)}]{\label{fig:}\includegraphics[width=0.4\linewidth]{3_electrode_depo/curve_Fe05.png}}
+    \caption{P type transistor characteristics measured on our samples}
+\end{figure}
+
+Finally, to better visualize the threshold voltage in our device, we remade these plots with a log scale on the y axis. We picked the 0.05 nm Fe sample to display here because in spite of the noise it shows a behavior very close to a textbook curve. We observe a switch in behavior when the concavity of the $\log{I_{DS}}$ changes near 0.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{4_electronic_charact/curve_Fe05_log.png}
+    \caption{\scriptsize{1 nm Al$_2$O$_3$, 0.05 nm Fe (1 hour CVD) with y log scale}}
+    \label{fig:logscale}
+\end{figure}
+
+The above figures show 3 characteristic curves looking close to the expected behavior of p-type transistors.
+
+Figures c) and d) show that the tested transistors in this configuration have an OFF state which is not well defined (current not close to 0 when off), we can graphically estimate the threshold voltages to be $V_{th_{c}} = 2.5V$ and $V_{th_{d}} = 2.4V$.
+
+On the other hand, the e) sample ($1.00$ $Al_2O_3$ $0.05$ $Fe$) had a very satisfactory looking curve and a clear OFF state region (current close to 0 when off), with an estimated threshold voltage of $V_{th_{e}} = -1.0 V$.
+
+
+\newpage
+\section*{Final comments}
+
+The purpose of this project was to make us discover the science behind CNTFETs and a procedure on how to produce simple transistor devices. We were able to understand challenges related to the production of nanoscale components, and more broadly challenges related to laboratory experiments. 
+\\
+During the semester, we have made a few mistakes related to the operation of the machines (such as forgetting to close valves) which thankfully were not critical. We also made mistakes which rendered some samples irrelevant. For example, we wished to make a substrate using cobalt as catalyst instead of iron to see the impact of the catalyst choice. However, as no traces of CNTs could be found using SEM, neither using raman spectroscopy we think that no CNTs were able to grow on it. Reviewing our notes, we think we made a mistake calculating the deposition time which may have been too short. This exemple illustrates the fact that in such production process, a mistake at one step would likely ruin the whole processes for this sample.
+\\
+At last, we were delighted to see that we were successfully able to make a P-type transistor device with a satisfactory behavior and characteristic curve, although some of the samples had not good photolithography.
+\\
+Finally, this project helped us gain insights on how scalable CNTFET production technology is for large and complex chips. 
+Although we have built devices with the whole $Si$ layer acting as the gate for all devices, building independent gates should be doable (still difficult) using current etching technologies (for example, one may deposit gates above each CNT channel with a dielectric layer to separate the channel and gate using photolithography).
+Another issue we did not discuss about yet is that using this process, the CNT layer is made of countless CNTs where most are connected, which makes it likely for the whole CNT layer to be seen as one big semiconducting layer, common for all devices. A method to make all devices have independent semiconducting layer should be found for a multiple transistor device. \\
+
+What we think could be me most critical issue is that it is very hard to control the physical properties (diameter and chirality) of the grown CNTs, which means that the control over the electrical properties of the devices is very uncertain. For example, if the diameter of some CNTs is too large the gate simply becomes conductive.
+At last, the devices we tested were of micrometer or hundreds of nanometer scale which is obviously negating all effects that we could experience with nanometric devices, were we could experience for example the need to align the CNT to link the electrodes. 
+
+
+\newpage
+\bibliographystyle{plain}
+\bibliography{refs}
+
+\end{document}
